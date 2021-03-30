@@ -13,19 +13,19 @@ echo ###############################################
 echo.
 echo.
 	
-if [%answer_add%] == [] (
+if [%answer_add%]==[] (
 	echo Is emty in add
 	call :AddChanges 
 ) else (
-	if %answer_add% == y (
+	if %answer_add%==y (
 		echo Is y in add
 		call :AddChanges 
 	) else (
-		if %answer_add% == Y (
+		if %answer_add%==Y (
 			echo Is Y in add
 			call :AddChanges 
 		) else (
-			if %answer_add% == Yes (
+			if %answer_add%==Yes (
 				echo Is Yes in add
 				call :AddChanges 
 			) else (
@@ -50,16 +50,16 @@ if [%answer_add%] == [] (
 	echo.
 	echo.
 
-	if %answer_commit% == y (
+	if %answer_commit%==y (
 		call :CommitChanges 
 	) else (
-		if %answer_commit% == Y (
+		if %answer_commit%==Y (
 			call :CommitChanges
 		) else (
-			if %answer_commit% == Yes (
+			if %answer_commit%==Yes (
 				call :CommitChanges
 			) else (
-				if [%answer_commit%] == [] (
+				if [%answer_commit%]==[] (
 					echo Is emty in commit
 					call :CommitChanges
 				) else (
