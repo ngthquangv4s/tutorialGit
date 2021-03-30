@@ -27,6 +27,7 @@ if [%answer_add%] == [] (
 				call :AddChanges 
 			) else (
 				echo Not add all changes
+				EXIT /B 0
 			)
 		)
 	)
@@ -61,6 +62,7 @@ if [%answer_add%] == [] (
 					call :CommitChanges
 				) else (
 					echo Not commit all changes
+					EXIT /B 0
 				)
 			)
 		)
