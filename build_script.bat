@@ -69,10 +69,11 @@ if [%answer_add%] == [] (
 			)
 		)
 	)
+	:CommitChanges
+		call git commit -m "%MY_COMMENT%"
+		call git push
+	EXIT /B 0
 EXIT /B 0
 
-:CommitChanges
-	call git commit -m "%MY_COMMENT%"
-	call git push
-EXIT /B 0
+
 
