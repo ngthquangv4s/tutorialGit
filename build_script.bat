@@ -5,12 +5,14 @@ set answer_add=y
 set answer_commit=y
 
 echo.
+echo [STATUS]
 echo ####################################### STATUS #######################################
 call git status
 echo ####################################### STATUS #######################################
 echo.
 echo.
 echo.
+echo [ADD]
 echo ######################################## ADD #########################################
 echo #  Do you want to ADD all changes?
 set /p answer_add=#  [Y/n]: 
@@ -43,11 +45,13 @@ EXIT /B %ERRORLEVEL%
 	echo ######################################## ADD #########################################
 	echo.
 	echo.
+	echo [STATUS]
 	echo ####################################### STATUS #######################################
 	call git status
 	echo ####################################### STATUS #######################################
 	echo.
 	echo.
+	echo [COMMIT]
 	echo ###################################### COMMIT ########################################
 	echo #  Do you want to COMMIT all changes?
 	set /p answer_commit=#  [Y/n]: 
@@ -64,7 +68,7 @@ EXIT /B %ERRORLEVEL%
 				if %answer_commit%==Yes (
 					call :CommitChanges
 				) else (
-					echo Not COMMIT all changes
+					echo #  Not COMMIT all changes
 					echo ###################################### COMMIT ########################################
 				)
 			)
@@ -77,6 +81,7 @@ EXIT /B 0
 	echo ###################################### COMMIT ########################################
 	echo.
 	echo.
+	echo [PUSH]
 	echo ####################################### PUSH #########################################
 	call git push
 	echo ####################################### PUSH #########################################
