@@ -4,6 +4,9 @@ set MY_COMMENT=Add batch file
 
 call git status
 
+set answer_add=y
+set answer_commit=y
+
 echo.
 echo.
 echo ###############################################
@@ -12,24 +15,20 @@ set /p answer_add=#  [Y/n]:
 echo ###############################################
 echo.
 echo.
-	
-if [%answer_add%]==[] (
-	echo Is emty in add
+
+if %answer_add%==y (
 	call :AddChanges 
 ) else (
-	if %answer_add%==y (
-		echo Is y in add
+	if %answer_add%==Y (
 		call :AddChanges 
 	) else (
-		if %answer_add%==Y (
-			echo Is Y in add
+		if %answer_add%==yes (
 			call :AddChanges 
 		) else (
 			if %answer_add%==Yes (
-				echo Is Yes in add
 				call :AddChanges 
 			) else (
-				echo Not add all changes
+				echo Not ADD all changes
 			)
 		)
 	)
@@ -37,7 +36,7 @@ if [%answer_add%]==[] (
 EXIT /B %ERRORLEVEL%
 
 :AddChanges
-	echo Add function
+	echo Adding all changes...........
 	call git add .
 	REM call git restore --staged
 	echo.
@@ -51,21 +50,19 @@ EXIT /B %ERRORLEVEL%
 	echo ###############################################
 	echo.
 	echo.
-
 	if %answer_commit%==y (
 		call :CommitChanges 
 	) else (
 		if %answer_commit%==Y (
 			call :CommitChanges
 		) else (
-			if %answer_commit%==Yes (
+			if %answer_commit%==yes (
 				call :CommitChanges
 			) else (
-				if [%answer_commit%]==[] (
-					echo Is emty in commit
+				if %answer_commit%==Yes (
 					call :CommitChanges
 				) else (
-					echo Not commit all changes
+					echo Not COMMIT all changes
 				)
 			)
 		)
@@ -73,7 +70,6 @@ EXIT /B %ERRORLEVEL%
 EXIT /B 0
 
 :CommitChanges
-	echo Commit function
 	call git commit -m "%MY_COMMENT%"
 	call git push
 EXIT /B 0
