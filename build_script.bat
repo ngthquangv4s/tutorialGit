@@ -1,43 +1,57 @@
 @echo off
 
 set MY_COMMENT=Add batch file
-set answer_add=y
-set answer_commit=y
+set /A TIME_OUT=30
+REM #####################
+REM #   Main function   #
+REM #####################
+call :Git_CI
 
-echo.
-echo [STATUS Before adding]
-echo ####################################### [STATUS] #######################################
-call git status
-echo ####################################### [STATUS] #######################################
-echo.
-echo.
-echo.
-echo [ADD]
-echo ######################################## [ADD] #########################################
-echo #  Do you want to ADD all changes?
-set /p answer_add=#  [Y/n]: 
+exit /B %ERRORLEVEL% 
+REM End of main function
 
-if %answer_add%==y (
-	call :AddChanges 
-) else (
-	if %answer_add%==Y (
+REM #####################
+REM #  Git_CI function  #
+REM #####################
+:Git_CI
+	set answer_add=y
+	set answer_commit=y
+	echo.
+	echo [STATUS Before adding]
+	echo ####################################### [STATUS] #######################################
+	call git status
+	echo ####################################### [STATUS] #######################################
+	echo.
+	echo.
+	echo.
+	echo [ADD]
+	echo ######################################## [ADD] #########################################
+	echo #  Do you want to ADD all changes?
+	set /p answer_add=#  [Y/n]: 
+
+	if %answer_add%==y (
 		call :AddChanges 
 	) else (
-		if %answer_add%==yes (
+		if %answer_add%==Y (
 			call :AddChanges 
 		) else (
-			if %answer_add%==Yes (
+			if %answer_add%==yes (
 				call :AddChanges 
 			) else (
-				echo #  Not ADD all changes
-				echo ######################################## [ADD] #########################################
+				if %answer_add%==Yes (
+					call :AddChanges 
+				) else (
+					echo #  Not ADD all changes
+					echo ######################################## [ADD] #########################################
+				)
 			)
 		)
 	)
-)
+EXIT /B 0
 
-EXIT /B %ERRORLEVEL%
-
+REM #########################
+REM #  AddChanges function  #
+REM #########################
 :AddChanges
 	echo #  Adding all changes...........
 	call git add .
@@ -76,6 +90,9 @@ EXIT /B %ERRORLEVEL%
 	)
 EXIT /B 0
 
+REM ############################
+REM #  CommitChanges function  #
+REM ############################
 :CommitChanges
 	echo #  Your comment: %MY_COMMENT%
 	call git commit -m "%MY_COMMENT%"
@@ -87,5 +104,6 @@ EXIT /B 0
 	call git push
 	echo ####################################### [PUSH] #########################################
 	echo.
+	call timeout /t %TIME_OUT% /nobreak
 	echo.
 EXIT /B 0
