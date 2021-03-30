@@ -18,16 +18,18 @@ if [%answer_add%] == [] (
 	call :AddChanges 
 ) else (
 	if %answer_add% == y (
+		echo Is y in add
 		call :AddChanges 
 	) else (
 		if %answer_add% == Y (
+			echo Is Y in add
 			call :AddChanges 
 		) else (
 			if %answer_add% == Yes (
+				echo Is Yes in add
 				call :AddChanges 
 			) else (
 				echo Not add all changes
-				EXIT /B 0
 			)
 		)
 	)
