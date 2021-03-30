@@ -34,8 +34,10 @@ if [%answer_add%]==[] (
 		)
 	)
 )
+EXIT /B %ERRORLEVEL%
 
 :AddChanges
+	echo Add function
 	call git add .
 	REM call git restore --staged
 	echo.
@@ -64,16 +66,14 @@ if [%answer_add%]==[] (
 					call :CommitChanges
 				) else (
 					echo Not commit all changes
-					EXIT /B 0
 				)
 			)
 		)
 	)
-	:CommitChanges
-		call git commit -m "%MY_COMMENT%"
-		call git push
-	EXIT /B 0
 EXIT /B 0
 
-
-
+:CommitChanges
+	echo Commit function
+	call git commit -m "%MY_COMMENT%"
+	call git push
+EXIT /B 0
