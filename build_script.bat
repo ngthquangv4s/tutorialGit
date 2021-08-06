@@ -1,7 +1,7 @@
 @echo off
 
-set MY_COMMENT=Add batch file
-set /A TIME_OUT=30
+set MY_COMMENT =Add batch file
+set /A TIME_OUT=30				REM Time to wait for CI build success
 REM #####################
 REM #   Main function   #
 REM #####################
@@ -103,7 +103,6 @@ REM ############################
 	echo ####################################### [PUSH] #########################################
 	call git push
 	echo ####################################### [PUSH] #########################################
-	echo.
 	call timeout /t %TIME_OUT% /nobreak
 	echo.
 EXIT /B 0
